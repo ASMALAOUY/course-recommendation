@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Flask, render_template, request, redirect, url_for, session, abort
+from flask import Flask, render_template, request, redirect, url_for, session, abort, jsonify
 from recommender import df, recommend_by_id, recommend_for_user
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def root():
 
 
 # =====================================================
-# LOGIN
+# LOGIN - CORRIGÉ
 # =====================================================
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -49,6 +49,9 @@ def login():
         if user:
             session["user_id"] = user["id"]
             session["username"] = user["full_name"]
+            session["full_name"] = user["full_name"]  # ✅ AJOUTER
+            session["email"] = user["email"]           # ✅ AJOUTER
+            session["phone"] = user["phone"]           # ✅ AJOUTER
             # après login → page des cours
             return redirect(url_for("index"))
         else:
@@ -204,6 +207,51 @@ def my_favorites():
         liked_courses=liked_courses,
         recommendations=recommendations
     )
+
+
+# =====================================================
+# UPDATE PROFILE - CORRIGÉ
+# =====================================================
+@app.route('/update_profile', methods=['POST'])
+def update_profile():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'message': 'Non authentifié'}), 401
+    
+    data = request.get_json()
+    user_id = session['user_id']
+    
+    full_name = data.get('full_name', '').strip()
+    email = data.get('email', '').strip()
+    phone = data.get('phone', '').strip()
+    
+    # Validation
+    if not full_name or not email or not phone:
+        return jsonify({'success': False, 'message': 'Tous les champs sont obligatoires'}), 400
+    
+    try:
+        conn = get_db()
+        cur = conn.cursor()
+        
+        # Mise à jour en base de données
+        cur.execute(
+            "UPDATE users SET full_name=%s, email=%s, phone=%s WHERE id=%s",
+            (full_name, email, phone, user_id)
+        )
+        conn.commit()
+        conn.close()
+        
+        # Mise à jour de la session
+        session['full_name'] = full_name
+        session['email'] = email
+        session['phone'] = phone
+        session['username'] = full_name
+        
+        return jsonify({'success': True, 'message': 'Profil mis à jour avec succès'})
+    
+    except mysql.connector.Error as err:
+        return jsonify({'success': False, 'message': f'Erreur BD: {err}'}), 500
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 
 # =====================================================
