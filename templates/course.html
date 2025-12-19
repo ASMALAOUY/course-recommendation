@@ -1,0 +1,642 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ course.title }} - Course Details</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <style>
+  /* ------------------------------
+     RESET + BASE
+  ------------------------------ */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary-gold: #D4AF37;
+    --dark-gold: #B8941E;
+    --light-gold: #F4E5C3;
+    --dark-bg: #0F0F0F;
+    --dark-secondary: #1A1A1A;
+    --dark-card: #242424;
+    --text-light: #FFFFFF;
+    --text-muted: #B0B0B0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Animated background particles */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseGlow 8s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--primary-gold);
+    transition: all 0.3s ease;
+  }
+
+  a:hover {
+    color: var(--light-gold);
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  /* ------------------------------
+     NAVBAR
+  ------------------------------ */
+  nav.navbar {
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+
+  nav.navbar:hover {
+    border-bottom-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+  }
+
+  nav.navbar a.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    letter-spacing: 1px;
+  }
+
+  nav.navbar a.navbar-brand::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-gold);
+    transition: width 0.3s ease;
+  }
+
+  nav.navbar a.navbar-brand:hover::after {
+    width: 100%;
+  }
+
+  nav.navbar .btn {
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-light);
+    background: transparent;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  nav.navbar .btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  nav.navbar .btn:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  nav.navbar .btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-light);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+  }
+
+  .navbar-text {
+    color: var(--text-light);
+    margin-right: 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* ------------------------------
+     BUTTONS
+  ------------------------------ */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    color: var(--dark-bg);
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-gold);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+    color: var(--dark-bg);
+  }
+
+  .btn-like {
+    border-radius: 25px;
+    padding: 0.8rem 2rem;
+    border: 2px solid var(--primary-gold);
+    color: var(--primary-gold);
+    font-size: 1rem;
+    font-weight: 600;
+    background: transparent;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-like::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--primary-gold);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .btn-like:hover::before {
+    width: 400px;
+    height: 400px;
+  }
+
+  .btn-like:hover {
+    color: var(--dark-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+  }
+
+  .btn-like span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ------------------------------
+     LAYOUT
+  ------------------------------ */
+  .container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 2rem auto 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .col-md-8,
+  .col-md-4 {
+    padding: 0;
+  }
+
+  @media (min-width: 768px) {
+    .col-md-8 { 
+      flex: 0 0 calc(66.66% - 1rem);
+    }
+    .col-md-4 { 
+      flex: 0 0 calc(33.33% - 1rem);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .col-md-8,
+    .col-md-4 {
+      flex: 0 0 100%;
+    }
+  }
+
+  /* ------------------------------
+     COURSE MAIN CARD
+  ------------------------------ */
+  .course-main-card {
+    background: var(--dark-card);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .course-main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .course-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+  }
+
+  .course-main-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .course-main-info p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .course-main-info p:hover {
+    background: rgba(212, 175, 55, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .course-main-info p:first-child {
+    color: var(--light-gold);
+  }
+
+  hr {
+    margin: 2rem 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+  }
+
+  /* ------------------------------
+     RECOMMENDATIONS WRAPPER
+  ------------------------------ */
+  .reco-wrapper {
+    background: var(--dark-card);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    margin-top: 2rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+
+  .reco-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .reco-title {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .reco-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--primary-gold);
+    border-radius: 2px;
+  }
+
+  /* Grille de cartes */
+  .reco-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Style d'une carte recommandation */
+  .reco-card {
+    height: 100%;
+    background: rgba(26, 26, 26, 0.6);
+    border-radius: 15px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reco-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .reco-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+    border-color: var(--primary-gold);
+  }
+
+  .reco-card:hover::before {
+    opacity: 1;
+  }
+
+  .reco-card h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .reco-card p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    position: relative;
+  }
+
+  .reco-card .btn-primary {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.5rem;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  /* Button Actions Container */
+  .course-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  /* ------------------------------
+     RESPONSIVE
+  ------------------------------ */
+  @media (max-width: 768px) {
+    .course-main-title {
+      font-size: 1.8rem;
+    }
+
+    .reco-title {
+      font-size: 1.5rem;
+    }
+
+    .course-main-info {
+      gap: 1rem;
+    }
+
+    .course-main-info p {
+      font-size: 0.95rem;
+      padding: 0.6rem 1rem;
+    }
+
+    nav.navbar {
+      padding: 1rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .course-main-card,
+    .reco-wrapper {
+      padding: 1.5rem;
+    }
+
+    .reco-row {
+      grid-template-columns: 1fr;
+    }
+
+    .course-actions {
+      flex-direction: column;
+    }
+
+    .btn-like {
+      margin-left: 0;
+    }
+  }
+
+  /* ------------------------------
+     LOADING ANIMATIONS
+  ------------------------------ */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reco-card {
+    animation: fadeIn 0.6s ease;
+  }
+
+  /* Stagger animation for cards */
+  .reco-card:nth-child(1) { animation-delay: 0.1s; }
+  .reco-card:nth-child(2) { animation-delay: 0.2s; }
+  .reco-card:nth-child(3) { animation-delay: 0.3s; }
+  .reco-card:nth-child(4) { animation-delay: 0.4s; }
+  .reco-card:nth-child(5) { animation-delay: 0.5s; }
+  .reco-card:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="navbar-brand" href="{{ url_for('index') }}">EduGuide</a>
+  <div>
+    {% if session.username %}
+      <span class="navbar-text">👤 {{ session.username }}</span>
+      <a href="{{ url_for('my_favorites') }}" class="btn">⭐ Mes favoris</a>
+      <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="btn">Login / Sign Up</a>
+    {% endif %}
+  </div>
+</nav>
+
+<div class="container">
+  <!-- COURS PRINCIPAL -->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="course-main-card">
+        <h2 class="course-main-title">{{ course.title }}</h2>
+        <div class="course-main-info">
+          <p>⭐ {{ course.avg_rating }}</p>
+          <p>👥 {{ course.num_subscribers }} inscrits</p>
+          <p>💰 {{ course.price_detail__amount }} $</p>
+        </div>
+
+        <div class="course-actions">
+          {% if course.url %}
+            <a href="{{ course.url }}" target="_blank" class="btn-primary">
+              Voir sur la plateforme
+            </a>
+          {% endif %}
+
+          {% if session.user_id %}
+            <a href="{{ url_for('like_course', course_id=course.id) }}" class="btn-like">
+              <span>❤️ J'aime ce cours</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMANDATIONS -->
+  <div class="reco-wrapper">
+    <h4 class="reco-title">Recommandations similaires</h4>
+
+    <div class="reco-row">
+      {% for rec in recommendations %}
+        <div class="reco-card">
+          <div>
+            <h5>{{ rec.title }}</h5>
+            <p>
+              ⭐ {{ rec.rating }}<br>
+              👥 {{ rec.subscribers }} inscrits<br>
+              💰 {{ rec.price }} $
+            </p>
+          </div>
+          <div>
+            <a href="{{ url_for('course_page', course_id=rec.id) }}"
+               class="btn-primary">
+              Voir le cours
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
