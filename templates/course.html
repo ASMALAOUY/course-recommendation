@@ -16,20 +16,21 @@
   }
 
   :root {
-    --primary-gold: #D4AF37;
-    --dark-gold: #B8941E;
-    --light-gold: #F4E5C3;
-    --dark-bg: #0F0F0F;
-    --dark-secondary: #1A1A1A;
-    --dark-card: #242424;
-    --text-light: #FFFFFF;
-    --text-muted: #B0B0B0;
+    --primary-purple: #a855f7;
+    --dark-purple: #7c3aed;
+    --light-purple: #c084fc;
+    --pink: #ec4899;
+    --light-pink: #fce7f3;
+    --very-light-purple: #f3e8ff;
+    --white: #ffffff;
+    --text-dark: #7c3aed;
+    --text-muted: #a855f7;
   }
 
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%);
-    color: var(--text-light);
+    background: linear-gradient(135deg, #fce7f3 0%, #e9d5ff 50%, #f3e8ff 100%);
+    color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
@@ -43,8 +44,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
     animation: pulseGlow 8s ease-in-out infinite;
@@ -57,12 +58,12 @@
 
   a {
     text-decoration: none;
-    color: var(--primary-gold);
+    color: var(--primary-purple);
     transition: all 0.3s ease;
   }
 
   a:hover {
-    color: var(--light-gold);
+    color: var(--pink);
   }
 
   img {
@@ -74,10 +75,10 @@
      NAVBAR
   ------------------------------ */
   nav.navbar {
-    background: rgba(15, 15, 15, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    color: var(--text-light);
+    border-bottom: 2px solid rgba(168, 85, 247, 0.2);
+    color: var(--text-dark);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -86,17 +87,18 @@
     top: 0;
     z-index: 1000;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 15px rgba(168, 85, 247, 0.1);
   }
 
   nav.navbar:hover {
-    border-bottom-color: rgba(212, 175, 55, 0.5);
-    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+    border-bottom-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);
   }
 
   nav.navbar a.navbar-brand {
     font-size: 1.8rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+    background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -110,9 +112,10 @@
     bottom: -5px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: var(--primary-gold);
+    height: 3px;
+    background: linear-gradient(90deg, var(--pink) 0%, var(--primary-purple) 100%);
     transition: width 0.3s ease;
+    border-radius: 2px;
   }
 
   nav.navbar a.navbar-brand:hover::after {
@@ -123,9 +126,9 @@
     border-radius: 25px;
     padding: 0.6rem 1.5rem;
     font-size: 0.9rem;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: var(--text-light);
-    background: transparent;
+    border: 2px solid var(--primary-purple);
+    color: var(--primary-purple);
+    background: rgba(255, 255, 255, 0.8);
     margin-left: 0.5rem;
     cursor: pointer;
     position: relative;
@@ -141,7 +144,7 @@
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(168, 85, 247, 0.1);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
   }
@@ -152,33 +155,36 @@
   }
 
   nav.navbar .btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--text-light);
+    background: var(--primary-purple);
+    color: white;
+    border-color: var(--primary-purple);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3);
   }
 
   .navbar-text {
-    color: var(--text-light);
+    color: var(--dark-purple);
     margin-right: 1rem;
     font-size: 0.95rem;
+    font-weight: 500;
   }
 
   /* ------------------------------
      BUTTONS
   ------------------------------ */
   .btn-primary {
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
+    background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
     padding: 0.8rem 2rem;
     border-radius: 25px;
-    color: var(--dark-bg);
+    color: white;
     display: inline-block;
     font-size: 1rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    border: 2px solid var(--primary-gold);
+    border: 2px solid transparent;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
   }
 
   .btn-primary::before {
@@ -198,18 +204,18 @@
 
   .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
-    color: var(--dark-bg);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+    color: white;
   }
 
   .btn-like {
     border-radius: 25px;
     padding: 0.8rem 2rem;
-    border: 2px solid var(--primary-gold);
-    color: var(--primary-gold);
+    border: 2px solid var(--pink);
+    color: var(--pink);
     font-size: 1rem;
     font-weight: 600;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.9);
     margin-left: 1rem;
     transition: all 0.3s ease;
     display: inline-block;
@@ -226,7 +232,7 @@
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: var(--primary-gold);
+    background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
   }
@@ -237,9 +243,10 @@
   }
 
   .btn-like:hover {
-    color: var(--dark-bg);
+    color: white;
+    border-color: transparent;
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
   }
 
   .btn-like span {
@@ -289,11 +296,11 @@
      COURSE MAIN CARD
   ------------------------------ */
   .course-main-card {
-    background: var(--dark-card);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 231, 243, 0.6) 100%);
     border-radius: 20px;
     padding: 2.5rem;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(168, 85, 247, 0.2);
+    box-shadow: 0 10px 40px rgba(168, 85, 247, 0.2);
     position: relative;
     overflow: hidden;
     animation: fadeInUp 0.8s ease;
@@ -317,7 +324,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
     pointer-events: none;
   }
 
@@ -325,17 +332,18 @@
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+    background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1.2;
     animation: shimmer 3s ease-in-out infinite;
+    position: relative;
   }
 
   @keyframes shimmer {
     0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.3); }
+    50% { filter: brightness(1.2); }
   }
 
   .course-main-info {
@@ -353,38 +361,41 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.8rem 1.5rem;
-    background: rgba(212, 175, 55, 0.1);
-    border-radius: 15px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    border: 2px solid rgba(168, 85, 247, 0.2);
     transition: all 0.3s ease;
+    font-weight: 600;
   }
 
   .course-main-info p:hover {
-    background: rgba(212, 175, 55, 0.2);
+    background: rgba(243, 232, 255, 0.8);
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
   }
 
   .course-main-info p:first-child {
-    color: var(--light-gold);
+    color: var(--primary-purple);
   }
 
   hr {
     margin: 2rem 0;
     border: none;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3), transparent);
+    border-radius: 1px;
   }
 
   /* ------------------------------
      RECOMMENDATIONS WRAPPER
   ------------------------------ */
   .reco-wrapper {
-    background: var(--dark-card);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 232, 255, 0.6) 100%);
     border-radius: 20px;
     padding: 2.5rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 40px rgba(168, 85, 247, 0.2);
     margin-top: 2rem;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 2px solid rgba(168, 85, 247, 0.2);
     position: relative;
     overflow: hidden;
     animation: fadeInUp 0.8s ease 0.2s both;
@@ -397,29 +408,30 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
     pointer-events: none;
   }
 
   .reco-title {
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+    background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 2rem;
     position: relative;
+    padding-bottom: 1rem;
   }
 
   .reco-title::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: 0;
     left: 0;
     width: 80px;
-    height: 3px;
-    background: var(--primary-gold);
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink) 0%, var(--primary-purple) 100%);
     border-radius: 2px;
   }
 
@@ -433,10 +445,10 @@
   /* Style d'une carte recommandation */
   .reco-card {
     height: 100%;
-    background: rgba(26, 26, 26, 0.6);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(168, 85, 247, 0.2);
+    box-shadow: 0 5px 20px rgba(168, 85, 247, 0.15);
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -453,15 +465,15 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
   }
 
   .reco-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
-    border-color: var(--primary-gold);
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.3);
+    border-color: var(--primary-purple);
   }
 
   .reco-card:hover::before {
@@ -472,7 +484,7 @@
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: var(--text-light);
+    color: var(--dark-purple);
     position: relative;
     line-height: 1.4;
   }
@@ -483,6 +495,7 @@
     color: var(--text-muted);
     line-height: 1.8;
     position: relative;
+    font-weight: 500;
   }
 
   .reco-card .btn-primary {

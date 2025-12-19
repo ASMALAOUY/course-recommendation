@@ -13,20 +13,21 @@
     }
 
     :root {
-      --primary-gold: #D4AF37;
-      --dark-gold: #B8941E;
-      --light-gold: #F4E5C3;
-      --dark-bg: #0F0F0F;
-      --dark-secondary: #1A1A1A;
-      --dark-card: #242424;
-      --text-light: #FFFFFF;
-      --text-muted: #B0B0B0;
+      --primary-purple: #a855f7;
+      --dark-purple: #7c3aed;
+      --light-purple: #c084fc;
+      --pink: #ec4899;
+      --light-pink: #fce7f3;
+      --very-light-purple: #f3e8ff;
+      --white: #ffffff;
+      --text-dark: #7c3aed;
+      --text-muted: #a855f7;
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%);
-      color: var(--text-light);
+      background: linear-gradient(135deg, #fce7f3 0%, #e9d5ff 50%, #f3e8ff 100%);
+      color: var(--text-dark);
       overflow-x: hidden;
       min-height: 100vh;
     }
@@ -39,8 +40,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+      background: radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
       animation: pulseGlow 8s ease-in-out infinite;
@@ -57,16 +58,17 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(15, 15, 15, 0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      border-bottom: 2px solid rgba(168, 85, 247, 0.2);
       z-index: 1000;
       transition: all 0.3s ease;
+      box-shadow: 0 2px 15px rgba(168, 85, 247, 0.1);
     }
 
     #header:hover {
-      border-bottom-color: rgba(212, 175, 55, 0.5);
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+      border-bottom-color: rgba(168, 85, 247, 0.5);
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);
     }
 
     .navbar {
@@ -97,7 +99,7 @@
     .navbar-brand {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -113,9 +115,10 @@
       bottom: -5px;
       left: 0;
       width: 0;
-      height: 2px;
-      background: var(--primary-gold);
+      height: 3px;
+      background: linear-gradient(90deg, var(--pink) 0%, var(--primary-purple) 100%);
       transition: width 0.3s ease;
+      border-radius: 2px;
     }
 
     .navbar-brand:hover::after {
@@ -143,7 +146,7 @@
       width: 0;
       height: 0;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(168, 85, 247, 0.1);
       transform: translate(-50%, -50%);
       transition: width 0.6s, height 0.6s;
     }
@@ -154,32 +157,37 @@
     }
 
     .btn-outline-light {
-      color: var(--text-light);
-      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--primary-purple);
+      border-color: var(--primary-purple);
+      background: rgba(255, 255, 255, 0.8);
     }
 
     .btn-outline-light:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--text-light);
+      background: var(--primary-purple);
+      color: white;
+      border-color: var(--primary-purple);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3);
     }
 
     .btn-outline-info {
-      color: var(--primary-gold);
-      border-color: var(--primary-gold);
+      color: var(--pink);
+      border-color: var(--pink);
+      background: rgba(255, 255, 255, 0.8);
     }
 
     .btn-outline-info:hover {
-      background: var(--primary-gold);
-      color: var(--dark-bg);
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
+      color: white;
+      border-color: transparent;
       transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 5px 20px rgba(236, 72, 153, 0.4);
     }
 
     .btn-outline-danger {
       color: #ff6b6b;
       border-color: #ff6b6b;
+      background: rgba(255, 255, 255, 0.8);
     }
 
     .btn-outline-danger:hover {
@@ -190,14 +198,16 @@
     }
 
     .btn-outline-success {
-      color: var(--primary-gold);
-      border-color: var(--primary-gold);
+      color: var(--primary-purple);
+      border-color: var(--light-purple);
+      background: rgba(255, 255, 255, 0.9);
       font-size: 0.9rem;
     }
 
     .btn-outline-success:hover {
-      background: var(--primary-gold);
-      color: var(--dark-bg);
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
+      color: white;
+      border-color: transparent;
       transform: scale(1.05);
     }
 
@@ -212,8 +222,9 @@
     .mb-3 { margin-bottom: 1rem; }
 
     .text-white {
-      color: var(--text-light);
+      color: var(--dark-purple);
       font-size: 0.95rem;
+      font-weight: 500;
     }
 
     /* Main Content */
@@ -243,7 +254,7 @@
     .section-title h2 {
       font-size: 3rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -254,7 +265,7 @@
 
     @keyframes shimmer {
       0%, 100% { filter: brightness(1); }
-      50% { filter: brightness(1.3); }
+      50% { filter: brightness(1.2); }
     }
 
     .section-title p {
@@ -273,15 +284,16 @@
 
     /* Course Card */
     .course-item {
-      background: var(--dark-card);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 231, 243, 0.6) 100%);
       border-radius: 20px;
       overflow: hidden;
       transition: all 0.4s ease;
-      border: 1px solid rgba(212, 175, 55, 0.1);
+      border: 2px solid rgba(168, 85, 247, 0.2);
       position: relative;
       height: 100%;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 5px 20px rgba(168, 85, 247, 0.15);
     }
 
     .course-item::before {
@@ -291,15 +303,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .course-item:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
-      border-color: var(--primary-gold);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+      border-color: var(--primary-purple);
     }
 
     .course-item:hover::before {
@@ -311,6 +323,7 @@
       height: 200px;
       object-fit: cover;
       transition: transform 0.4s ease;
+      border-bottom: 2px solid rgba(168, 85, 247, 0.1);
     }
 
     .course-item:hover img {
@@ -331,10 +344,11 @@
     }
 
     .course-content h3 a {
-      color: var(--text-light);
+      color: var(--dark-purple);
       text-decoration: none;
       transition: all 0.3s ease;
       position: relative;
+      font-weight: 600;
     }
 
     .course-content h3 a::after {
@@ -344,12 +358,15 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--primary-gold);
+      background: linear-gradient(90deg, var(--pink) 0%, var(--primary-purple) 100%);
       transition: width 0.3s ease;
     }
 
     .course-content h3 a:hover {
-      color: var(--primary-gold);
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .course-content h3 a:hover::after {
@@ -359,20 +376,25 @@
     .price {
       font-size: 1.5rem;
       font-weight: 700;
-      color: var(--primary-gold);
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .rating {
       font-size: 1.1rem;
-      color: var(--light-gold);
+      color: var(--primary-purple);
+      font-weight: 600;
     }
 
     /* Footer */
     #footer {
-      background: var(--dark-secondary);
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 232, 255, 0.9) 100%);
+      border-top: 2px solid rgba(168, 85, 247, 0.2);
       padding: 2rem 0;
       margin-top: 4rem;
+      box-shadow: 0 -5px 20px rgba(168, 85, 247, 0.1);
     }
 
     .text-center {
@@ -382,6 +404,7 @@
     #footer small {
       color: var(--text-muted);
       font-size: 0.9rem;
+      font-weight: 500;
     }
 
     /* Responsive */
@@ -422,6 +445,15 @@
     .d-flex.justify-content-between.align-items-center span {
       color: var(--text-muted);
       font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Additional purple/pink accents */
+    .d-flex.justify-content-between.align-items-center span:first-child {
+      background: linear-gradient(135deg, var(--light-pink) 0%, var(--very-light-purple) 100%);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
     }
   </style>
 </head>

@@ -13,17 +13,17 @@
       font-family: 'Poppins', sans-serif;
       font-weight: 300;
       line-height: 1.7;
-      color: #ffeba7;
-      background-color: #1f2029;
+      color: #7c3aed;
+      background: linear-gradient(135deg, #fce7f3 0%, #e9d5ff 50%, #f3e8ff 100%);
     }
     a:hover {
       text-decoration: none;
     }
     .link {
-      color: #ffeba7;
+      color: #c084fc;
     }
     .link:hover {
-      color: #c4c3ca;
+      color: #a855f7;
     }
     p {
       font-weight: 500;
@@ -31,10 +31,12 @@
     }
     h4 {
       font-weight: 600;
+      color: #7c3aed;
     }
     h6 span{
       padding: 0 20px;
       font-weight: 700;
+      color: #a855f7;
     }
     .section{
       position: relative;
@@ -59,7 +61,7 @@
       padding: 0;
       margin: 10px auto;
       cursor: pointer;
-      background-color: #ffeba7;
+      background: linear-gradient(90deg, #ec4899 0%, #a855f7 100%);
     }
     .checkbox:checked + label:before,
     .checkbox:not(:checked) + label:before{
@@ -68,8 +70,8 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      color: #ffeba7;
-      background-color: #020305;
+      color: #ffffff;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
       font-family: 'unicons';
       content: '\eb4f';
       z-index: 20;
@@ -79,6 +81,7 @@
       text-align: center;
       font-size: 24px;
       transition: all 0.5s ease;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
     }
     .checkbox:checked + label:before {
       transform: translateX(44px) rotate(-270deg);
@@ -104,11 +107,12 @@
     .card-front, .card-back {
       width: 100%;
       height: 100%;
-      background-color: #2b2e38;
-      background-image: url('{{ url_for("static", filename="img/subtle-prism.png") }}');
+      background: linear-gradient(135deg, #ffffff 0%, #fce7f3 50%, #f3e8ff 100%);
       position: absolute;
-      border-radius: 6px;
+      border-radius: 15px;
       -webkit-transform-style: preserve-3d;
+      box-shadow: 0 10px 40px rgba(168, 85, 247, 0.3);
+      border: 1px solid rgba(168, 85, 247, 0.1);
     }
     .card-back {
       transform: rotateY(180deg);
@@ -138,23 +142,26 @@
       height: 48px;
       width: 100%;
       font-weight: 500;
-      border-radius: 4px;
+      border-radius: 10px;
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 0.5px;
       outline: none;
-      color: #c4c3ca;
-      background-color: #1f2029;
-      border: none;
+      color: #7c3aed;
+      background-color: #ffffff;
+      border: 2px solid #e9d5ff;
       -webkit-transition: all 200ms linear;
       transition: all 200ms linear;
-      box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+      box-shadow: 0 2px 10px rgba(168, 85, 247, 0.1);
     }
     .form-style:focus,
     .form-style:active {
-      border: none;
+      border: 2px solid #c084fc;
       outline: none;
-      box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+    }
+    .form-style::placeholder {
+      color: #c084fc;
     }
     .input-icon {
       position: absolute;
@@ -164,11 +171,12 @@
       font-size: 24px;
       line-height: 48px;
       text-align: left;
+      color: #a855f7;
       -webkit-transition: all 200ms linear;
       transition: all 200ms linear;
     }
     .btn{  
-      border-radius: 4px;
+      border-radius: 10px;
       height: 44px;
       font-size: 13px;
       font-weight: 600;
@@ -181,13 +189,16 @@
       display: -ms-inline-flexbox;
       display: inline-flex;
       align-items: center;
-      background-color: #ffeba7;
-      color: #000000;
+      background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
     }
     .btn:hover{  
-      background-color: #000000;
-      color: #ffeba7;
-      box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+      background: linear-gradient(135deg, #db2777 0%, #9333ea 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+      transform: translateY(-2px);
     }
   </style>
 </head>
