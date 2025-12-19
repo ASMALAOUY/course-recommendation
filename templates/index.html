@@ -935,8 +935,7 @@
           <div class="course-item">
             
             <!-- image fixe -->
-            <img src="{{ url_for('static', filename='img/course_default.jpg') }}" class="img-fluid" alt="course image">
-
+            <img src="{{ c.image_url }}" class="img-fluid" alt="{{ c.title }}" loading="lazy">
             <div class="course-content">
               <h3>
                 <!-- Lien vers la page du cours -->
