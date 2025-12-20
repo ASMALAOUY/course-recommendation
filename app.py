@@ -415,11 +415,20 @@ def index():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    cols = ["id", "title", "avg_rating", "num_subscribers", "price_detail__amount", "image_url"]
-    courses = df[cols].head(100).to_dict(orient="records")
-    
-    return render_template("index.html", courses=courses)
+    # Récupérer le paramètre de recherche
+    query = request.args.get('q', '').strip()
 
+    cols = ["id", "title", "avg_rating", "num_subscribers", "price_detail__amount", "image_url"]
+    
+    # Filtrer les cours selon la recherche
+    if query:
+        # Recherche dans le titre (insensible à la casse)
+        filtered_df = df[df['title'].str.contains(query, case=False, na=False)]
+        courses = filtered_df[cols].head(100).to_dict(orient="records")
+    else:
+        courses = df[cols].head(100).to_dict(orient="records")
+    
+    return render_template("index.html", courses=courses, query=query)
 
 # =====================================================
 # COURSE PAGE

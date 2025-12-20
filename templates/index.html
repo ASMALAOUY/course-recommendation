@@ -220,6 +220,7 @@
     .me-3 { margin-right: 1rem; }
     .mb-0 { margin-bottom: 0; }
     .mb-3 { margin-bottom: 1rem; }
+    .mb-4 { margin-bottom: 2rem; }
 
     /* User Profile Button */
     .user-profile-btn {
@@ -408,6 +409,67 @@
       text-align: right;
     }
 
+    /* Mode édition */
+    .edit-mode .profile-info-value {
+      display: none;
+    }
+
+    .edit-input {
+      display: none;
+      width: 100%;
+      padding: 0.5rem;
+      border: 2px solid var(--primary-purple);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    .edit-mode .edit-input {
+      display: block;
+    }
+
+    .profile-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn-edit, .btn-save {
+      padding: 0.6rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 2px solid var(--primary-purple);
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .btn-edit:hover, .btn-save:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-cancel {
+      padding: 0.6rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 2px solid #ccc;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.9);
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .btn-cancel:hover {
+      transform: scale(1.05);
+      border-color: #999;
+    }
+
     /* Main Content */
     #main {
       margin-top: 100px;
@@ -417,7 +479,7 @@
     /* Section Title */
     .section-title {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       animation: fadeInDown 1s ease;
     }
 
@@ -453,6 +515,79 @@
       color: var(--text-muted);
       font-size: 1.1rem;
       letter-spacing: 1px;
+    }
+
+    /* Search Bar Styles */
+    .search-wrapper {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.5rem;
+      border-radius: 50px;
+      box-shadow: 0 5px 20px rgba(168, 85, 247, 0.2);
+      border: 2px solid rgba(168, 85, 247, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .search-form:focus-within {
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.4);
+      border-color: var(--primary-purple);
+    }
+
+    .form-control {
+      flex: 1;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      background: transparent;
+      color: var(--text-dark);
+      outline: none;
+    }
+
+    .form-control::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn-primary {
+      padding: 0.8rem 2.5rem;
+      border-radius: 25px;
+      background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
+      border: none;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+    }
+
+    /* No results message */
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      border: 2px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .no-results p {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .no-results strong {
+      color: var(--dark-purple);
     }
 
     /* Courses Grid */
@@ -623,6 +758,14 @@
       .profile-info-value {
         text-align: left;
       }
+
+      .search-form {
+        flex-direction: column;
+      }
+
+      .btn-primary {
+        width: 100%;
+      }
     }
 
     /* Loading animation for images */
@@ -702,221 +845,42 @@
   </header>
 
   <!-- Profile Modal -->
-<!-- Profile Modal -->
-{% if session.get('username') %}
-<div class="profile-modal" id="profileModal">
-  <div class="profile-modal-content">
-    <button class="profile-close" onclick="toggleProfileModal()">&times;</button>
-    
-    <div class="profile-header">
-      <div class="profile-avatar">👤</div>
-      <h2 class="profile-name" id="profileDisplayName">{{ session.get('full_name', session.username) }}</h2>
-    </div>
+  {% if session.get('username') %}
+  <div class="profile-modal" id="profileModal">
+    <div class="profile-modal-content">
+      <button class="profile-close" onclick="toggleProfileModal()">&times;</button>
+      
+      <div class="profile-header">
+        <div class="profile-avatar">👤</div>
+        <h2 class="profile-name" id="profileDisplayName">{{ session.get('full_name', session.username) }}</h2>
+      </div>
 
-    <div class="profile-info" id="profileInfo">
-      <div class="profile-info-item">
-        <span class="profile-info-label">Nom complet:</span>
-        <span class="profile-info-value" id="fullNameDisplay">{{ session.get('full_name', session.username) }}</span>
-        <input type="text" class="edit-input" id="fullNameInput" value="{{ session.get('full_name', session.username) }}">
+      <div class="profile-info" id="profileInfo">
+        <div class="profile-info-item">
+          <span class="profile-info-label">Nom complet:</span>
+          <span class="profile-info-value" id="fullNameDisplay">{{ session.get('full_name', session.username) }}</span>
+          <input type="text" class="edit-input" id="fullNameInput" value="{{ session.get('full_name', session.username) }}">
+        </div>
+        <div class="profile-info-item">
+          <span class="profile-info-label">Email:</span>
+          <span class="profile-info-value" id="emailDisplay">{{ session.get('email', '') }}</span>
+          <input type="email" class="edit-input" id="emailInput" value="{{ session.get('email', '') }}">
+        </div>
+        <div class="profile-info-item">
+          <span class="profile-info-label">Téléphone:</span>
+          <span class="profile-info-value" id="phoneDisplay">{{ session.get('phone', '') }}</span>
+          <input type="tel" class="edit-input" id="phoneInput" value="{{ session.get('phone', '') }}">
+        </div>
       </div>
-      <div class="profile-info-item">
-        <span class="profile-info-label">Email:</span>
-        <span class="profile-info-value" id="emailDisplay">{{ session.get('email', '') }}</span>
-        <input type="email" class="edit-input" id="emailInput" value="{{ session.get('email', '') }}">
-      </div>
-      <div class="profile-info-item">
-        <span class="profile-info-label">Téléphone:</span>
-        <span class="profile-info-value" id="phoneDisplay">{{ session.get('phone', '') }}</span>
-        <input type="tel" class="edit-input" id="phoneInput" value="{{ session.get('phone', '') }}">
-      </div>
-    </div>
 
-    <div class="profile-buttons">
-      <button class="btn-edit" id="editBtn" onclick="enterEditMode()">✏️ Modifier</button>
-      <button class="btn-save" id="saveBtn" style="display: none;" onclick="saveChanges()">💾 Enregistrer</button>
-      <button class="btn-cancel" id="cancelBtn" style="display: none;" onclick="cancelEdit()">Annuler</button>
+      <div class="profile-buttons">
+        <button class="btn-edit" id="editBtn" onclick="enterEditMode()">✏️ Modifier</button>
+        <button class="btn-save" id="saveBtn" style="display: none;" onclick="saveChanges()">💾 Enregistrer</button>
+        <button class="btn-cancel" id="cancelBtn" style="display: none;" onclick="cancelEdit()">Annuler</button>
+      </div>
     </div>
   </div>
-</div>
-{% endif %}
-
-<style>
-  /* Mode édition */
-  .edit-mode .profile-info-value {
-    display: none;
-  }
-
-  .edit-input {
-    display: none;
-    width: 100%;
-    padding: 0.5rem;
-    border: 2px solid var(--primary-purple);
-    border-radius: 8px;
-    font-size: 0.95rem;
-    color: var(--text-dark);
-  }
-
-  .edit-mode .edit-input {
-    display: block;
-  }
-
-  .profile-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .btn-edit {
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 2px solid var(--primary-purple);
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
-    color: white;
-    font-size: 0.9rem;
-  }
-
-  .btn-edit:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 20px rgba(168, 85, 247, 0.3);
-  }
-
-  .btn-cancel {
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 2px solid #ccc;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.9);
-    color: #666;
-    font-size: 0.9rem;
-  }
-
-  .btn-cancel:hover {
-    transform: scale(1.05);
-    border-color: #999;
-  }
-
-  .btn-save {
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 2px solid var(--primary-purple);
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--pink) 0%, var(--primary-purple) 100%);
-    color: white;
-    font-size: 0.9rem;
-  }
-
-  .btn-save:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 20px rgba(168, 85, 247, 0.3);
-  }
-</style>
-
-<script>
-  let isEditMode = false;
-
-  function enterEditMode() {
-    isEditMode = true;
-    document.getElementById('profileInfo').classList.add('edit-mode');
-    document.getElementById('editBtn').style.display = 'none';
-    document.getElementById('saveBtn').style.display = 'inline-block';
-    document.getElementById('cancelBtn').style.display = 'inline-block';
-  }
-
-  function cancelEdit() {
-    isEditMode = false;
-    document.getElementById('profileInfo').classList.remove('edit-mode');
-    document.getElementById('editBtn').style.display = 'inline-block';
-    document.getElementById('saveBtn').style.display = 'none';
-    document.getElementById('cancelBtn').style.display = 'none';
-
-    // Restaurer les valeurs précédentes
-    document.getElementById('fullNameInput').value = document.getElementById('fullNameDisplay').textContent;
-    document.getElementById('emailInput').value = document.getElementById('emailDisplay').textContent;
-    document.getElementById('phoneInput').value = document.getElementById('phoneDisplay').textContent;
-  }
-
-  function saveChanges() {
-    const fullName = document.getElementById('fullNameInput').value;
-    const email = document.getElementById('emailInput').value;
-    const phone = document.getElementById('phoneInput').value;
-
-    // Validation simple
-    if (!fullName.trim() || !email.trim() || !phone.trim()) {
-      alert('Veuillez remplir tous les champs');
-      return;
-    }
-
-    // Validation email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert('Veuillez entrer un email valide');
-      return;
-    }
-
-    // Envoyer les données au serveur
-    fetch('{{ url_for("update_profile") }}', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        full_name: fullName, 
-        email: email, 
-        phone: phone 
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Mise à jour de l'affichage
-        document.getElementById('fullNameDisplay').textContent = fullName;
-        document.getElementById('emailDisplay').textContent = email;
-        document.getElementById('phoneDisplay').textContent = phone;
-        document.getElementById('profileDisplayName').textContent = fullName;
-
-        // Quitter le mode édition
-        isEditMode = false;
-        document.getElementById('profileInfo').classList.remove('edit-mode');
-        document.getElementById('editBtn').style.display = 'inline-block';
-        document.getElementById('saveBtn').style.display = 'none';
-        document.getElementById('cancelBtn').style.display = 'none';
-
-        alert('Profil mis à jour avec succès!');
-      } else {
-        alert('Erreur lors de la mise à jour: ' + (data.message || 'Erreur inconnue'));
-      }
-    })
-    .catch(error => {
-      console.error('Erreur:', error);
-      alert('Erreur lors de la mise à jour du profil');
-    });
-  }
-
-  // Fermer le modal en cliquant en dehors
-  document.getElementById('profileModal')?.addEventListener('click', function(e) {
-    if (e.target === this && !isEditMode) {
-      toggleProfileModal();
-    }
-  });
-
-  // Fermer avec Escape
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && !isEditMode) {
-      const modal = document.getElementById('profileModal');
-      if (modal?.classList.contains('active')) {
-        toggleProfileModal();
-      }
-    }
-  });
-</script>
+  {% endif %}
 
   <main id="main">
 
@@ -929,16 +893,39 @@
           <p>Sélection de cours</p>
         </div>
 
-        <div class="row">
+        <!-- ======= Search Bar ======= -->
+        <div class="search-wrapper">
+          <form method="GET" action="{{ url_for('index') }}" class="search-form">
+            <input
+              type="text"
+              name="q"
+              class="form-control"
+              placeholder="🔍 Rechercher un cours (Python, Data Science, Marketing...)"
+              value="{{ query or '' }}"
+            >
+            <button type="submit" class="btn-primary">
+              Rechercher
+            </button>
+          </form>
+        </div>
 
+        <!-- Message si aucun résultat -->
+        {% if courses|length == 0 and query %}
+          <div class="no-results">
+            <p>
+              Aucun cours trouvé pour « <strong>{{ query }}</strong> »
+            </p>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-light">Voir tous les cours</a>
+          </div>
+        {% endif %}
+
+        <!-- Liste des cours -->
+        <div class="row">
           {% for c in courses %}
           <div class="course-item">
-            
-            <!-- image fixe -->
             <img src="{{ c.image_url }}" class="img-fluid" alt="{{ c.title }}" loading="lazy">
             <div class="course-content">
               <h3>
-                <!-- Lien vers la page du cours -->
                 <a href="{{ url_for('course_page', course_id=c.id) }}">
                   {{ c.title }}
                 </a>
@@ -970,7 +957,6 @@
             </div>
           </div>
           {% endfor %}
-
         </div>
 
       </div>
@@ -988,23 +974,101 @@
   </footer>
 
   <script>
+    let isEditMode = false;
+
     function toggleProfileModal() {
       const modal = document.getElementById('profileModal');
       modal.classList.toggle('active');
     }
 
+    function enterEditMode() {
+      isEditMode = true;
+      document.getElementById('profileInfo').classList.add('edit-mode');
+      document.getElementById('editBtn').style.display = 'none';
+      document.getElementById('saveBtn').style.display = 'inline-block';
+      document.getElementById('cancelBtn').style.display = 'inline-block';
+    }
+
+    function cancelEdit() {
+      isEditMode = false;
+      document.getElementById('profileInfo').classList.remove('edit-mode');
+      document.getElementById('editBtn').style.display = 'inline-block';
+      document.getElementById('saveBtn').style.display = 'none';
+      document.getElementById('cancelBtn').style.display = 'none';
+
+      // Restaurer les valeurs précédentes
+      document.getElementById('fullNameInput').value = document.getElementById('fullNameDisplay').textContent;
+      document.getElementById('emailInput').value = document.getElementById('emailDisplay').textContent;
+      document.getElementById('phoneInput').value = document.getElementById('phoneDisplay').textContent;
+    }
+
+    function saveChanges() {
+      const fullName = document.getElementById('fullNameInput').value;
+      const email = document.getElementById('emailInput').value;
+      const phone = document.getElementById('phoneInput').value;
+
+      // Validation simple
+      if (!fullName.trim() || !email.trim() || !phone.trim()) {
+        alert('Veuillez remplir tous les champs');
+        return;
+      }
+
+      // Validation email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Veuillez entrer un email valide');
+        return;
+      }
+
+      // Envoyer les données au serveur
+      fetch('{{ url_for("update_profile") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          full_name: fullName, 
+          email: email, 
+          phone: phone 
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Mise à jour de l'affichage
+          document.getElementById('fullNameDisplay').textContent = fullName;
+          document.getElementById('emailDisplay').textContent = email;
+          document.getElementById('phoneDisplay').textContent = phone;
+          document.getElementById('profileDisplayName').textContent = fullName;
+
+          // Quitter le mode édition
+          isEditMode = false;
+          document.getElementById('profileInfo').classList.remove('edit-mode');
+          document.getElementById('editBtn').style.display = 'inline-block';
+          document.getElementById('saveBtn').style.display = 'none';
+          document.getElementById('cancelBtn').style.display = 'none';
+
+          alert('Profil mis à jour avec succès!');
+        } else {
+          alert('Erreur lors de la mise à jour: ' + (data.message || 'Erreur inconnue'));
+        }
+      })
+      .catch(error => {
+        console.error('Erreur:', error);
+        alert('Erreur lors de la mise à jour du profil');
+      });
+    }
+
     // Close modal when clicking outside
     document.getElementById('profileModal')?.addEventListener('click', function(e) {
-      if (e.target === this) {
+      if (e.target === this && !isEditMode) {
         toggleProfileModal();
       }
     });
 
     // Close modal with Escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !isEditMode) {
         const modal = document.getElementById('profileModal');
-        if (modal.classList.contains('active')) {
+        if (modal?.classList.contains('active')) {
           toggleProfileModal();
         }
       }
