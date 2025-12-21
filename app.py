@@ -418,18 +418,23 @@ def index():
     # Récupérer le paramètre de recherche
     query = request.args.get('q', '').strip()
 
-    cols = ["id", "title", "avg_rating", "num_subscribers", "price_detail__amount", "image_url"]
+    cols = ["id", "title", "avg_rating", "num_subscribers", "price_detail__amount", "image_url", "url"]
     
     # Filtrer les cours selon la recherche
     if query:
-        # Recherche dans le titre (insensible à la casse)
         filtered_df = df[df['title'].str.contains(query, case=False, na=False)]
-        courses = filtered_df[cols].head(100).to_dict(orient="records")
+        courses_data = filtered_df[cols].head(100)
     else:
-        courses = df[cols].head(100).to_dict(orient="records")
+        courses_data = df[cols].head(100)
+    
+    # Convertir en dict et ajouter l'URL complète
+    courses = []
+    for _, row in courses_data.iterrows():
+        course_dict = row.to_dict()
+        course_dict['full_url'] = get_course_url(row)
+        courses.append(course_dict)
     
     return render_template("index.html", courses=courses, query=query)
-
 # =====================================================
 # COURSE PAGE
 # =====================================================
@@ -443,18 +448,64 @@ def course_page(course_id):
         abort(404)
 
     course = course_row.iloc[0].to_dict()
+    # Ajouter l'URL complète
+    course['full_url'] = get_course_url(course_row.iloc[0])
+    
     recommendations = recommend_by_id(course_id, top_n=6)
     
-    # Ajouter image_url aux recommandations
+    # Ajouter image_url et full_url aux recommandations
     for rec in recommendations:
-        rec['image_url'] = df[df['id'] == rec['id']]['image_url'].values[0] if len(df[df['id'] == rec['id']]) > 0 else 'https://images.unsplash.com/photo-1516321318423-f06f70504504?w=400&h=200&fit=crop'
-
+        rec_row = df[df['id'] == rec['id']]
+        if not rec_row.empty:
+            rec['image_url'] = rec_row['image_url'].values[0]
+            rec['full_url'] = get_course_url(rec_row.iloc[0])
+        else:
+            rec['image_url'] = 'https://images.unsplash.com/photo-1516321318423-f06f70504504?w=400&h=200&fit=crop'
+            rec['full_url'] = '#'
+    
     return render_template(
         "course.html",
         course=course,
         recommendations=recommendations
     )
-
+# =====================================================
+# FONCTION POUR GÉNÉRER L'URL COMPLÈTE
+# =====================================================
+def get_course_url(row):
+    """
+    Reconstruit l'URL complète du cours à partir de l'URL relative dans le dataset
+    """
+    base_url = "https://www.udemy.com"  # Modifiez selon la plateforme d'origine
+    relative_url = row.get('url', '')
+    
+    # Nettoyer l'URL
+    if not relative_url:
+        return "#"
+    
+    # Ajouter le slash si nécessaire
+    if not relative_url.startswith('/'):
+        relative_url = '/' + relative_url
+    
+    # Retirer les doublons de 'course'
+    parts = relative_url.split('/')
+    cleaned_parts = []
+    course_count = 0
+    
+    for part in parts:
+        if part == 'course':
+            course_count += 1
+            if course_count <= 1:
+                cleaned_parts.append(part)
+        else:
+            cleaned_parts.append(part)
+    
+    cleaned_url = '/'.join(cleaned_parts)
+    
+    # Supprimer les segments vides et doublons
+    while '//' in cleaned_url:
+        cleaned_url = cleaned_url.replace('//', '/')
+    
+    return base_url + cleaned_url
 
 # =====================================================
 # LIKE A COURSE
