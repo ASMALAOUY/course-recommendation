@@ -116,18 +116,14 @@ python app.py
 
 
 
-## 📸 Screenshots
 
-*(Add screenshots here if needed)*
 
----
+##  Future Improvements
 
-## 💡 Future Improvements
-
-* 🔐 Password encryption
-* 🌍 Deploy online (Render / Railway)
-* 📱 Responsive design improvement
-* 🧠 Advanced recommendation algorithms
+*  Password encryption
+*  Deploy online (Render / Railway)
+*  Responsive design improvement
+*  Advanced recommendation algorithms
 
 ---
 
