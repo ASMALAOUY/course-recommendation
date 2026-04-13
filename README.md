@@ -1,3 +1,8 @@
+
+https://github.com/user-attachments/assets/500a2339-99d1-42b7-b0e7-ada1a15e5231
+
+https://github.com/user-attachments/assets/48ca9a05-50c3-4f40-b162-23a8909344d3
+
 # 🎓 Course Recommendation System
 
 A web-based application that recommends courses to users based on their preferences using Machine Learning and user interaction data.
@@ -109,6 +114,13 @@ python app.py
 ---
 
 ## 🌐 Demo
+
+
+
+
+
+
+https://github.com/user-attachments/assets/40c1fb97-6408-43ff-b7cd-239fa583d425
 
 
 
